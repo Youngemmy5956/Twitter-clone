@@ -128,12 +128,49 @@ export default function Signup() {
                     zIndex: 100,
                   },
                 }}
-                className="absolute top-[100px] mx-4 rounded-[5px] lg:top-auto mt-[30vh] left-0 lg:left-[35%] lg:right-[35%] right-0 h-auto pb-12 overflow-y-auto overflow-auto bg-[#FFFDFD] z-50 outline-none border-0 flex flex-col justify-between shadow-[5px_5px_30px_0px_#00000040]"
+                className="absolute top-[100px] mx-4 rounded-[5px] lg:top-auto mt-[30vh] left-0 lg:left-[32%] lg:right-[35%] right-0 h-auto pb-12 overflow-y-auto overflow-auto bg-black z-50 outline-none border-0 flex flex-col justify-between shadow-[5px_5px_30px_0px_#00000040]"
                 isOpen={modal}
                 shouldCloseOnOverlayclick={true}
                 onRequestClose={closeModal}
                 ariaHideApp={false}
-              ></Modal>
+              >
+                <form className="flex flex-col px-10 gap-4 mt-12">
+                    <h1 className="text-2xl text-white font-bold">Create your account</h1>
+                  <input
+                    id="firstName"
+                    type="text"
+                    placeholder="firstName"
+                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                  />
+                  <input
+                    id="lastName"
+                    type="text"
+                    placeholder="lastName"
+                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                  />
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Email address"
+                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                  />
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                  />
+                  <button className="bg-black text-white text-lg h-14 rounded-[5px] roboto">
+                    Sign up
+                  </button>
+                </form>
+                <a
+                  href="/login"
+                  className="roboto text-white flex justify-center mt-4"
+                >
+                  Registered? Login here
+                </a>
+              </Modal>
               <button
                 className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] "
                 onClick={openModal}
