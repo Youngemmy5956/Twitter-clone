@@ -109,11 +109,11 @@ export default function Signup() {
                 Sign up now to get your own personalized timeline!
               </h1>
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold flex  w-[90%]">
-                <BiLogoGoogle /> Sign up with Google
+                <BiLogoGoogle className="mt-1"/> Sign up with Google
               </button>
 
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold flex  w-[90%]">
-                <AiFillApple /> Sign up with Apple
+                <AiFillApple className="mt-1"/> Sign up with Apple
               </button>
 
               <Modal
@@ -135,7 +135,8 @@ export default function Signup() {
                 ariaHideApp={false}
               >
                 <form className="flex flex-col px-10 gap-4 mt-12">
-                    <h1 className="text-2xl text-white font-bold">Create your account</h1>
+                <BsTwitter className="text-5xl text-white mt-2 ml-56" />
+                    <h1 className="text-2xl text-white font-bold text-center">Create your account</h1>
                   <input
                     id="firstName"
                     type="text"
