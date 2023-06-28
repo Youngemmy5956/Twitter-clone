@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsTwitter } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
@@ -7,9 +7,20 @@ import { BiLogoGoogle } from "react-icons/bi";
 import { AiFillApple } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
-import images from "../Assets/FzqYPWfWIAEHXkI.jpeg"
+import images from "../Assets/FzqYPWfWIAEHXkI.jpeg";
+import Modal from "react-modal";
 
 export default function Signup() {
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <div>
       <div className="w-full bg-black text-white flex">
@@ -56,13 +67,13 @@ export default function Signup() {
             </h1>
           </span>
 
-         <div className="rounded-3xl border-white mt-6 mb-4 pl-8">
-         <img src={images} alt="" className="rounded-2xl" />
-         </div>
+          <div className="rounded-3xl border-white mt-6 mb-4 pl-8">
+            <img src={images} alt="" className="rounded-2xl" />
+          </div>
 
-         <hr />
+          <hr />
 
-         <span className="flex pt-8 gap-4">
+          <span className="flex pt-8 gap-4">
             <CgProfile className="mt-2" />
             <h1 className="text-base mt-1 flex gap-1 ">
               Nwamini Emmanuel <MdVerified className="text-blue-600 mt-1" />{" "}
@@ -85,19 +96,10 @@ export default function Signup() {
             </h1>
           </span>
 
-         <div className="rounded-3xl border-white mt-6 mb-4 pl-8">
-         <img src={images} alt="" className="rounded-2xl" />
-         </div>
-
-
-         
-
-         
+          <div className="rounded-3xl border-white mt-6 mb-4 pl-8">
+            <img src={images} alt="" className="rounded-2xl" />
+          </div>
         </div>
-
-        
-
-        
 
         <div className="w-[37%] px-3 py-2">
           <div className="border border-white rounded-2xl w-[50%] pl-3 mt-3 pb-3 ml-8 py-2">
@@ -114,8 +116,29 @@ export default function Signup() {
                 <AiFillApple /> Sign up with Apple
               </button>
 
-              <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] ">
-                Sign up with Google
+              <Modal
+                style={{
+                  overlay: {
+                    position: "fixed",
+                    top: "0%",
+                    left: "0%",
+                    right: "0%",
+                    bottom: "0%",
+                    backgroundColor: "#00000078",
+                    zIndex: 100,
+                  },
+                }}
+                className="absolute top-[100px] mx-4 rounded-[5px] lg:top-auto mt-[30vh] left-0 lg:left-[35%] lg:right-[35%] right-0 h-auto pb-12 overflow-y-auto overflow-auto bg-[#FFFDFD] z-50 outline-none border-0 flex flex-col justify-between shadow-[5px_5px_30px_0px_#00000040]"
+                isOpen={modal}
+                shouldCloseOnOverlayclick={true}
+                onRequestClose={closeModal}
+                ariaHideApp={false}
+              ></Modal>
+              <button
+                className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] "
+                onClick={openModal}
+              >
+                Create account
               </button>
 
               <h1 className="text-sm pt-3">
