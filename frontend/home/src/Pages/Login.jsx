@@ -9,9 +9,45 @@ import { CgProfile } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
 import images from "../Assets/FzqYPWfWIAEHXkI.jpeg";
 import Modal from "react-modal";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [modal, setModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      await axios
+        .post("http://localhost:8000/api/auth/login", data)
+        .then((res) => {
+          console.log(res.data.token);
+          localStorage.setItem("token", JSON.stringify(res.data.token));
+
+          navigate("/");
+          alert("Login successful");
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const openModal = () => {
     setModal(true);
@@ -37,7 +73,7 @@ export default function Login() {
             Log in
           </button>
           <button className="border rounded-full py-2 px-6 bg-white text-black font-bold ">
-           <a href="/signup"> Sign up</a>
+            <a href="/signup"> Sign up</a>
           </button>
         </span>
       </div>
@@ -128,7 +164,7 @@ export default function Login() {
                 Sign up now to get your own personalized timeline!
               </h1>
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold flex  w-[90%]">
-                <BiLogoGoogle className="mt-1"/> Sign up with Google
+                <BiLogoGoogle className="mt-1" /> Sign up with Google
               </button>
 
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold flex  w-[90%]">
@@ -153,8 +189,11 @@ export default function Login() {
                 onRequestClose={closeModal}
                 ariaHideApp={false}
               >
-                <form className="flex flex-col px-32 gap-4 mt-12">
-                <BsTwitter className="text-5xl text-white mt-2 ml-32" />
+                <form
+                  onSubmit={onSubmit}
+                  className="flex flex-col px-32 gap-4 mt-12"
+                >
+                  <BsTwitter className="text-5xl text-white mt-2 ml-32" />
                   <h1 className="text-2xl text-white font-bold pl-10">
                     Sign in your account
                   </h1>
@@ -163,14 +202,24 @@ export default function Login() {
                   </button>
 
                   <button className=" bg-white py-[8px] mt-3 text-black pl-[75px]  px-12 rounded-full font-bold flex  w-[90%]">
-                    <AiFillApple  className="mt-1"/> Sign in with Apple
+                    <AiFillApple className="mt-1" /> Sign in with Apple
                   </button>
                   <input
-                    id="email"
                     type="email"
+                    value={email}
                     placeholder="Email address"
+                    onChange={onChangeEmail}
                     className="h-14 border-2 w-[88%] bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
+
+                  <input
+                    type="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={onChangePassword}
+                    className="h-14 border border-[#FB6900] rounded-[5px] outline-none px-6"
+                  />
+
                   <button className="bg-black pr-10 text-white text-lg h-14 rounded-[5px] roboto">
                     Sign in
                   </button>

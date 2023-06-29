@@ -9,6 +9,8 @@ import { CgProfile } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
 import images from "../Assets/FzqYPWfWIAEHXkI.jpeg";
 import Modal from "react-modal";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [modal, setModal] = useState(false);
@@ -19,6 +21,41 @@ export default function Signup() {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const [input, setInput] = useState({
+    firstName: "",
+    lastName: "",
+    password: "",
+    email: "",
+  });
+
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e) => {
+    setInput({ ...input, [e.target.id]: e.target.value });
+  };
+
+  
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+
+
+
+    try {
+
+      await axios.post("http://localhost:5000/api/auth/register", input)
+        .then((res) => {
+          console.log(res.data);
+          navigate("/login");
+          alert("Sign up successful");
+        })
+
+      } catch(err) {
+        console.log(err);
+      
+    }
   };
 
   return (
@@ -134,31 +171,37 @@ export default function Signup() {
                 onRequestClose={closeModal}
                 ariaHideApp={false}
               >
-                <form className="flex flex-col px-10 gap-4 mt-12">
+                <form onSubmit={onSubmit} className="flex flex-col px-10 gap-4 mt-12">
                 <BsTwitter className="text-5xl text-white mt-2 ml-56" />
                     <h1 className="text-2xl text-white font-bold text-center">Create your account</h1>
                   <input
-                    id="firstName"
-                    type="text"
-                    placeholder="firstName"
+                      id="firstName"
+                      type="text"
+                      placeholder="firstName"
+                      onChange={onChangeHandler}
                     className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
-                    id="lastName"
-                    type="text"
-                    placeholder="lastName"
+                     id="lastName"
+                     type="text"
+                     placeholder="lastName"
+                     onChange={onChangeHandler}
                     className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
-                    id="email"
-                    type="email"
-                    placeholder="Email address"
+                     id="email"
+                     type="email"
+                     value={input.email}
+                     placeholder="Email address"
+                     onChange={onChangeHandler}
                     className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
                     id="password"
                     type="password"
+                    value={input.password}
                     placeholder="Password"
+                    onChange={onChangeHandler}
                     className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <button className="bg-black text-white text-lg h-14 rounded-[5px] roboto">
