@@ -45,7 +45,7 @@ export default function Signup() {
 
     try {
 
-      await axios.post("http://localhost:5000/api/auth/register", input)
+      await axios.post("http://localhost:5000/api/auth/users/createUser", input)
         .then((res) => {
           console.log(res.data);
           navigate("/login");
@@ -179,14 +179,14 @@ export default function Signup() {
                       type="text"
                       placeholder="firstName"
                       onChange={onChangeHandler}
-                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
                      id="lastName"
                      type="text"
                      placeholder="lastName"
                      onChange={onChangeHandler}
-                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
                      id="email"
@@ -194,7 +194,7 @@ export default function Signup() {
                      value={input.email}
                      placeholder="Email address"
                      onChange={onChangeHandler}
-                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <input
                     id="password"
@@ -202,7 +202,7 @@ export default function Signup() {
                     value={input.password}
                     placeholder="Password"
                     onChange={onChangeHandler}
-                    className="h-14 border-2 bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
                   <button className="bg-black text-white text-lg h-14 rounded-[5px] roboto">
                     Sign up

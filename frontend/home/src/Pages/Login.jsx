@@ -36,7 +36,7 @@ export default function Login() {
 
     try {
       await axios
-        .post("http://localhost:5000/api/auth/login", data)
+        .post("http://localhost:5000/api/auth/users/loginUser", data)
         .then((res) => {
           console.log(res.data.token);
           localStorage.setItem("token", JSON.stringify(res.data.token));
@@ -209,7 +209,7 @@ export default function Login() {
                     value={email}
                     placeholder="Email address"
                     onChange={onChangeEmail}
-                    className="h-14 border-2 w-[88%] bg-black border-blue-500 rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 w-[88%]  text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
 
                   <input
@@ -217,7 +217,7 @@ export default function Login() {
                     value={password}
                     placeholder="Password"
                     onChange={onChangePassword}
-                    className="h-14 border border-[#FB6900] rounded-[5px] outline-none px-6"
+                    className="h-14 border-2 w-[88%] text-white bg-black border-blue-500 rounded-[5px] outline-none px-6"
                   />
 
                   <button className="bg-black pr-10 text-white text-lg h-14 rounded-[5px] roboto">
