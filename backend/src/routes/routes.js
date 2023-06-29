@@ -2,22 +2,20 @@ import express from "express";
 import User_model from "../model/users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Tweet_model from "../model/tweets.js";
 
 // import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-
-
 // auth create  user
-
 
 router.post("/users/createUser", async (req, res) => {
   const { name, email, mobile, password, confirmPassword, role } = req.body;
- if (password !== confirmPassword) {
+  if (password !== confirmPassword) {
     return res.status(400).json({ message: "password not match" });
   }
-  if(password.length < 8){
+  if (password.length < 8) {
     return res.status(400).json({ message: "password must be 8 character" });
   }
   if (role !== "admin" && role !== "user") {
@@ -26,27 +24,31 @@ router.post("/users/createUser", async (req, res) => {
   if (mobile.length !== 11) {
     return res.status(400).json({ message: "mobile number must be 10 digit" });
   }
-  if(email.indexOf("@") === -1){
+  if (email.indexOf("@") === -1) {
     return res.status(400).json({ message: "email must be valid" });
-    }
-    if(email.indexOf(".") === -1){
+  }
+  if (email.indexOf(".") === -1) {
     return res.status(400).json({ message: "email must be valid" });
-    }
+  }
   try {
-    bcrypt.hash(password, 10).then( async (hash) => {
-      await User_model.create({ name, email, mobile, password: hash, confirmPassword: hash, role })
-      .then(
-        (user) => {
-          const maxAge = 3 * 60 * 60;
-          const token = jwt.sign(
-            { id: user._id, email },
-            process.env.JWT_SECRECT_KEY,
-            { expiresIn: maxAge }
-          );
-          res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-          res.status(201).json({ message: "User successfully created", user });
-        }
-      );
+    bcrypt.hash(password, 10).then(async (hash) => {
+      await User_model.create({
+        name,
+        email,
+        mobile,
+        password: hash,
+        confirmPassword: hash,
+        role,
+      }).then((user) => {
+        const maxAge = 3 * 60 * 60;
+        const token = jwt.sign(
+          { id: user._id, email },
+          process.env.JWT_SECRECT_KEY,
+          { expiresIn: maxAge }
+        );
+        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(201).json({ message: "User successfully created", user });
+      });
     });
   } catch (err) {
     res.status(400).json({
@@ -101,6 +103,83 @@ router.get("/users/logoutUser", async (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 });
 
+// auth create tweet
 
+router.post("/createTweet", async (req, res) => {
+  const { tweet } = req.body;
+  try {
+    await Tweet_model.create({ tweet }).then((tweet) => {
+      res.status(201).json({ message: "Tweet successfully created", tweet });
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Tweet not successfully created",
+      error: err.message,
+    });
+  }
+});
+
+// auth get all tweet
+
+router.get("/getAllTweet", async (req, res) => {
+  try {
+    await Tweet_model.find().then((tweet) => {
+      res.status(201).json({ message: "Tweet successfully listed", tweet });
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Tweet not successfully created",
+      error: err.message,
+    });
+  }
+});
+
+// auth get tweet by id
+
+router.get("/getTweetById/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Tweet_model.findById(id).then((tweet) => {
+      res.status(201).json({ message: "Tweet successfully displayed", tweet });
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Tweet not successfully created",
+      error: err.message,
+    });
+  }
+});
+
+// auth update tweet by id
+
+router.put("/updateTweetById/:id", async (req, res) => {
+  const { id } = req.params;
+  const {tweet} = req.body;
+
+  try {
+    await Tweet_model.findByIdAndUpdate(id, {tweet});
+      res.status(201).json({ message: "Tweet successfully updated" });
+  } catch (err) {
+    res.status(400).json({
+      message: "Tweet not successfully updated",
+      error: err.message,
+    });
+  }
+});
+
+// auth delete tweet by id
+
+router.delete("/deleteTweetById/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Tweet_model.findByIdAndDelete(id);
+      res.status(201).json({ message: "Tweet successfully deleted" });
+  } catch (err) {
+    res.status(400).json({
+      message: "Tweet not successfully deleted",
+      error: err.message,
+    });
+  }
+});
 
 export default router;
