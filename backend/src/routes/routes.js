@@ -11,44 +11,35 @@ const router = express.Router();
 // auth create  user
 
 router.post("/users/createUser", async (req, res) => {
-  const { name, email, mobile, password, confirmPassword, role } = req.body;
-  if (password !== confirmPassword) {
-    return res.status(400).json({ message: "password not match" });
-  }
+  const { firstName, lastName, email, password } = req.body;
   if (password.length < 8) {
-    return res.status(400).json({ message: "password must be 8 character" });
+    return res
+      .status(400)
+      .json({ message: "password is less than 8 characters" });
   }
-  if (role !== "admin" && role !== "user") {
-    return res.status(400).json({ message: "role must be admin or user" });
-  }
-  if (mobile.length !== 11) {
-    return res.status(400).json({ message: "mobile number must be 10 digit" });
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).json({ message: "all fields are required" });
   }
   if (email.indexOf("@") === -1) {
-    return res.status(400).json({ message: "email must be valid" });
+    return res.status(400).json({ message: "invalid email" });
   }
   if (email.indexOf(".") === -1) {
-    return res.status(400).json({ message: "email must be valid" });
+    return res.status(400).json({ message: "invalid email" });
   }
   try {
     bcrypt.hash(password, 10).then(async (hash) => {
-      await User_model.create({
-        name,
-        email,
-        mobile,
-        password: hash,
-        confirmPassword: hash,
-        role,
-      }).then((user) => {
-        const maxAge = 3 * 60 * 60;
-        const token = jwt.sign(
-          { id: user._id, email },
-          process.env.JWT_SECRECT_KEY,
-          { expiresIn: maxAge }
-        );
-        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(201).json({ message: "User successfully created", user });
-      });
+      await  User_model.create({ firstName, lastName, email, password: hash }).then(
+        (user) => {
+          const maxAge = 3 * 60 * 60;
+          const token = jwt.sign(
+            { id: user._id, email },
+            process.env.JWT_SECRECT_KEY,
+            { expiresIn: maxAge }
+          );
+          res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+          res.status(201).json({ message: "User successfully created", user });
+        }
+      );
     });
   } catch (err) {
     res.status(400).json({
