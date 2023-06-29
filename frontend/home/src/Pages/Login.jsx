@@ -38,7 +38,7 @@ export default function Login() {
 
     try {
       await axios
-        .post("http://localhost:5000/api/auth/users/loginUser", data)
+        .post("http://localhost:5000/api/users/loginUser", data)
         .then((res) => {
           console.log(res.data.token);
           localStorage.setItem("token", JSON.stringify(res.data.token));

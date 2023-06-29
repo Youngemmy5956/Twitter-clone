@@ -47,7 +47,7 @@ export default function Signup() {
 
     try {
 
-      await axios.post("http://localhost:5000/api/auth/users/createUser", input)
+      await axios.post("http://localhost:5000/api/users/createUser", input)
         .then((res) => {
           console.log(res.data);
           navigate("/login");
