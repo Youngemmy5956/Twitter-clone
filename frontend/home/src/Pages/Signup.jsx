@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const openModal = () => {
     setModal(true);
@@ -39,6 +40,7 @@ export default function Signup() {
   
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
 
 
@@ -49,11 +51,13 @@ export default function Signup() {
         .then((res) => {
           console.log(res.data);
           navigate("/login");
+          setLoading(false);
           alert("Sign up successful");
         })
 
       } catch(err) {
         console.log(err);
+        setLoading(false);
       
     }
   };

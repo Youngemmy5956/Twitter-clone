@@ -16,6 +16,7 @@ export default function Login() {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ export default function Login() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const data = {
       email: email,
@@ -42,10 +44,12 @@ export default function Login() {
           localStorage.setItem("token", JSON.stringify(res.data.token));
 
           navigate("/");
+          setLoading(false);
           alert("Login successful");
         });
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
