@@ -174,7 +174,7 @@ export default function Home() {
 
         <div className="w-[37%] px-3 py-2">
 
-            <input type="search" name="" id="" />
+            <input type="search" name="" id="" placeholder="Search Twitter"  className="rounded-full border ml-8 py-2 px-20 border-blue-300 bg-black"/> 
           <div className="border border-white rounded-2xl w-[50%] pl-3 mt-3 pb-3 ml-8 py-2">
             <span className="gap-4">
               <h1 className="text-xl font-bold">New to Twitter?</h1>
@@ -219,6 +219,7 @@ export default function Home() {
                   <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
                   Twitter circle space
                 </h1>
+                
               </Modal>
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] ">
                 Create account
@@ -241,10 +242,79 @@ export default function Home() {
             </span>
           </div>
 
-          <h1 className=" pt-4 ml-12 ">
-            Terms of Service Privacy Policy Cookie Policy <br /> Accessibility
-            Ads info More... © 2023 X Corp.
-          </h1>
+         
+
+          <div className="border border-white rounded-2xl w-[50%] pl-3 mt-3 pb-3 ml-8 py-2">
+            <span className="gap-4">
+              <h1 className="text-xl font-bold">Trends for you.</h1>
+              <h1 className="text-[12px]">
+                Sign up now to get your own personalized timeline!
+              </h1>
+
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                  Choose audience
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Everyone around
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Twitter circle space
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                  Choose audience
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Everyone around
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Twitter circle space
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                  Choose audience
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Everyone around
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Twitter circle space
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                  Choose audience
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Everyone around
+                </h1>
+                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                  Twitter circle space
+                </h1>
+              <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] ">
+                Create account
+              </button>
+
+              <h1 className="text-sm pt-3">
+                By signing up, you agree to the{" "}
+                <b className="text-blue-600 hover:underline cursor-pointer">
+                  Terms of Service
+                </b>{" "}
+                and{" "}
+                <b className="text-blue-600 hover:underline cursor-pointer">
+                  Privacy Policy,
+                </b>{" "}
+                including{" "}
+                <b className="text-blue-600 hover:underline cursor-pointer">
+                  Cookie Use.
+                </b>
+              </h1>
+            </span>
+          </div>
         </div>
       </div>
     </div>
