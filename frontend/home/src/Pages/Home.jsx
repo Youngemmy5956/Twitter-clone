@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import { BsTwitter } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { CiSettings } from "react-icons/ci";
@@ -15,9 +15,11 @@ import { BiListCheck } from "react-icons/bi";
 import { CgMoreO } from "react-icons/cg";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import axios from "axios";
 
-export default function Home() {
+export default function Home({ onSave}) {
   const [modal, setModal] = useState(false);
+  const [tweets, setTweets] = useState([]); // Task State
 
   const openModal = () => {
     setModal(true);
@@ -26,6 +28,43 @@ export default function Home() {
   const closeModal = () => {
     setModal(false);
   };
+
+  const [tweet, setTweet] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!tweet) {
+      alert("Fill in tweet!");
+    } else {
+      onSave({ tweet });
+    }
+    setTweet("");
+  };
+
+  const addTweet = async (tweet) => {
+    const newTweets = { ...tweet};
+    try{
+      await axios
+      .post("http://localhost:5000/api/createTweet", newTweets)
+      .then((res) => {
+        console.log(res.data);
+        alert("You have successfully added a new tweet!");
+        setModal(false);
+    });
+    } catch(err) {}
+  };
+
+  const getTweet = () => {
+    try{
+       axios.get("http://localhost:5000/api/getAllTweet")
+      .then((res) => {
+        setTweets(res.data.form);
+        console.log(res.data);
+    });
+    } catch(err) {}
+  };
+
+  useEffect( getTweet , []);
 
   return (
     <div>
@@ -95,19 +134,34 @@ export default function Home() {
             Everyone <RiArrowDropDownLine className="text-blue-500 mt-1" />
           </button>
 
-          <input
-            type="text"
-            placeholder="What's happening?!!"
-            className="ml-44 bg-black border-l-black border-hidden"
-          />
+          <form onSubmit={handleSubmit} action="">
+            <input
+              type="text"
+              placeholder="What's happening?!!"
+              value={tweet}
+              onChange={(e) => setTweet(e.target.value)}
+              className="ml-44 bg-black border-l-black border-hidden"
+            />
 
-          <CgProfile className="mb-8" />
+            <CgProfile className="mb-8" />
 
-          <hr className="" />
+            <hr className="" />
 
-          <button className=" bg-blue-500 text-white text-xl mb-1 border-blue-200 ml-8 border py-[2px] mt-2 px-4 rounded-full font-bold flex ">
-            Tweet
-          </button>
+            <button className=" bg-blue-500 text-white text-xl mb-1 border-blue-200 ml-8 border py-[2px] mt-2 px-4 rounded-full font-bold flex ">
+              Tweet
+            </button>
+
+            {/* <section className="px-6">
+              {tweets.length > 0 ? (
+                <Tweets notes={tweets} />
+              ) : (
+                <p className="text-center">No items to display</p>
+              )}
+            </section> */}
+
+            {/* <AddTweets onSave={addTweet} />
+           */}
+          </form>
 
           <hr />
 
@@ -173,8 +227,13 @@ export default function Home() {
         </div>
 
         <div className="w-[37%] px-3 py-2">
-
-            <input type="search" name="" id="" placeholder="Search Twitter"  className="rounded-full border ml-8 py-2 px-20 border-blue-300 bg-black"/> 
+          <input
+            type="search"
+            name=""
+            id=""
+            placeholder="Search Twitter"
+            className="rounded-full border ml-8 py-2 px-20 border-blue-300 bg-black"
+          />
           <div className="border border-white rounded-2xl w-[50%] pl-3 mt-3 pb-3 ml-8 py-2">
             <span className="gap-4">
               <h1 className="text-xl font-bold">New to Twitter?</h1>
@@ -219,7 +278,6 @@ export default function Home() {
                   <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
                   Twitter circle space
                 </h1>
-                
               </Modal>
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] ">
                 Create account
@@ -242,8 +300,6 @@ export default function Home() {
             </span>
           </div>
 
-         
-
           <div className="border border-white rounded-2xl w-[50%] pl-3 mt-3 pb-3 ml-8 py-2">
             <span className="gap-4">
               <h1 className="text-xl font-bold">Trends for you.</h1>
@@ -251,50 +307,50 @@ export default function Home() {
                 Sign up now to get your own personalized timeline!
               </h1>
 
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
-                  Choose audience
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Everyone around
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Twitter circle space
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
-                  Choose audience
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Everyone around
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Twitter circle space
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
-                  Choose audience
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Everyone around
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Twitter circle space
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
-                  Choose audience
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Everyone around
-                </h1>
-                <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
-                  <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
-                  Twitter circle space
-                </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                Choose audience
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Everyone around
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Twitter circle space
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                Choose audience
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Everyone around
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Twitter circle space
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                Choose audience
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Everyone around
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Twitter circle space
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer">
+                Choose audience
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Everyone around
+              </h1>
+              <h1 className="text-white py-2 px-4 text-2xl font-semibold cursor-pointer flex gap-4">
+                <BiLogoGoogle className="mt-2 text-blue-500 cursor-pointer" />{" "}
+                Twitter circle space
+              </h1>
               <button className=" bg-white py-[8px] mt-3 text-black px-12 rounded-full font-bold w-[90%] ">
                 Create account
               </button>
