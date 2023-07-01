@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsTwitter } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { CiSettings } from "react-icons/ci";
@@ -17,7 +17,7 @@ import { BsBookmarkCheckFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import axios from "axios";
 
-export default function Home({ onSave}) {
+export default function Home({ onSave }) {
   const [modal, setModal] = useState(false);
   const [tweets, setTweets] = useState([]); // Task State
 
@@ -41,30 +41,29 @@ export default function Home({ onSave}) {
     setTweet("");
   };
 
-  const addTweet = async (tweet) => {
-    const newTweets = { ...tweet};
-    try{
-      await axios
-      .post("http://localhost:5000/api/createTweet", newTweets)
-      .then((res) => {
-        console.log(res.data);
-        alert("You have successfully added a new tweet!");
-        setModal(false);
-    });
-    } catch(err) {}
-  };
+//   const addTweet = async (tweet) => {
+//     const newTweets = { ...tweet };
+//     try {
+//       await axios
+//         .post("http://localhost:5000/api/createTweet", newTweets)
+//         .then((res) => {
+//           console.log(res.data);
+//           alert("You have successfully added a new tweet!");
+//           setModal(false);
+//         });
+//     } catch (err) {}
+//   };
 
   const getTweet = () => {
-    try{
-       axios.get("http://localhost:5000/api/getAllTweet")
-      .then((res) => {
+    try {
+      axios.get("http://localhost:5000/api/getAllTweet").then((res) => {
         setTweets(res.data.form);
         console.log(res.data);
-    });
-    } catch(err) {}
+      });
+    } catch (err) {}
   };
 
-  useEffect( getTweet , []);
+  useEffect(getTweet, []);
 
   return (
     <div>
@@ -160,7 +159,7 @@ export default function Home({ onSave}) {
             </section> */}
 
             {/* <AddTweets onSave={addTweet} />
-           */}
+             */}
           </form>
 
           <hr />
@@ -170,6 +169,11 @@ export default function Home({ onSave}) {
           <hr />
 
           <span className="flex pt-8 gap-4">
+            {/* <div>
+              {tweet.map((tweets) => (
+                <tweets key={tweets.id} tweets={tweets} />
+              ))}
+            </div> */}
             <CgProfile className="mt-2" />
             <h1 className="text-base mt-1 flex gap-1 ">
               Nwamini Emmanuel <MdVerified className="text-blue-600 mt-1" />{" "}
