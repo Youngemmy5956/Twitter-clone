@@ -29,18 +29,6 @@ export default function Home({ onSave }) {
     setModal(false);
   };
 
-//   const [tweet, setTweet] = useState("");
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (!tweet) {
-//       alert("Fill in tweet!");
-//     } else {
-//       onSave({ tweet });
-//     }
-//     setTweet("");
-//   };
-
 
   const [input, setInput] = useState({
     tweet: "",
@@ -63,19 +51,6 @@ export default function Home({ onSave }) {
                 });
         } catch (err) {}
     };
-
-//   const addTweet = async (tweet) => {
-//     const newTweets = { ...tweet };
-//     try {
-//       await axios
-//         .post("http://localhost:5000/api/createTweet", newTweets)
-//         .then((res) => {
-//           console.log(res.data);
-//           alert("You have successfully added a new tweet!");
-//           setModal(false);
-//         });
-//     } catch (err) {}
-//   };
 
   const getTweet = () => {
     try {
