@@ -29,17 +29,40 @@ export default function Home({ onSave }) {
     setModal(false);
   };
 
-  const [tweet, setTweet] = useState("");
+//   const [tweet, setTweet] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!tweet) {
-      alert("Fill in tweet!");
-    } else {
-      onSave({ tweet });
-    }
-    setTweet("");
-  };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     if (!tweet) {
+//       alert("Fill in tweet!");
+//     } else {
+//       onSave({ tweet });
+//     }
+//     setTweet("");
+//   };
+
+
+  const [input, setInput] = useState({
+    tweet: "",
+    });
+
+    const onChangeHandler = (e) => {
+        setInput({ ...input, [e.target.id]: e.target.value });
+    };
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios
+                .post("http://localhost:5000/api/createTweet", input)
+                .then((res) => {
+                    console.log(res.data);
+                    alert("You have successfully added a new tweet!");
+
+                });
+        } catch (err) {}
+    };
 
 //   const addTweet = async (tweet) => {
 //     const newTweets = { ...tweet };
@@ -133,12 +156,15 @@ export default function Home({ onSave }) {
             Everyone <RiArrowDropDownLine className="text-blue-500 mt-1" />
           </button>
 
-          <form onSubmit={handleSubmit} action="">
+          <form onSubmit={onSubmit} action="">
             <input
+
+            id="tweet"
               type="text"
               placeholder="What's happening?!!"
-              value={tweet}
-              onChange={(e) => setTweet(e.target.value)}
+              value={input.text}
+              onChange={onChangeHandler}
+            //   onChange={(e) => setTweet(e.target.value)}
               className="ml-44 bg-black border-l-black border-hidden"
             />
 
