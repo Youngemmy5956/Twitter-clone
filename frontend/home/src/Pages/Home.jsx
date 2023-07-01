@@ -57,7 +57,7 @@ export default function Home({ onSave }) {
   const getTweet = () => {
     try {
       axios.get("http://localhost:5000/api/getAllTweet").then((res) => {
-        setTweets(res.data.form);
+        setTweets(res.data.tweets);
         console.log(res.data);
       });
     } catch (err) {}
