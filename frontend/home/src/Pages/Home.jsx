@@ -169,11 +169,11 @@ export default function Home({ onSave }) {
           <hr />
 
           <span className="flex pt-8 gap-4">
-            <div>
+            {/* <div>
               {input.map((tweets) => (
                 <tweets key={tweets.tweet} tweets={tweets} />
               ))}
-            </div>
+            </div> */}
             <CgProfile className="mt-2" />
             <h1 className="text-base mt-1 flex gap-1 ">
               Nwamini Emmanuel <MdVerified className="text-blue-600 mt-1" />{" "}
