@@ -62,7 +62,7 @@ export default function Login() {
   };
   return (
     <div>
-      <div className="bg-blue-400 px-96 py-2 justify-between text-white flex static">
+      <div className="bg-blue-400 px-96 py-2 justify-between text-white flex sticky">
         <span>
           <h1 className="text-2xl font-bold">Don’t miss what’s happening</h1>
 

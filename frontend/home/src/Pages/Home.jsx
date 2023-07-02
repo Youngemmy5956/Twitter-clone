@@ -139,7 +139,6 @@ export default function Home({ onSave }) {
               placeholder="What's happening?!!"
               value={input.text}
               onChange={onChangeHandler}
-            //   onChange={(e) => setTweet(e.target.value)}
               className="ml-44 bg-black border-l-black border-hidden"
             />
 
@@ -170,11 +169,11 @@ export default function Home({ onSave }) {
           <hr />
 
           <span className="flex pt-8 gap-4">
-            {/* <div>
-              {tweet.map((tweets) => (
-                <tweets key={tweets.id} tweets={tweets} />
+            <div>
+              {input.map((tweets) => (
+                <tweets key={tweets.tweet} tweets={tweets} />
               ))}
-            </div> */}
+            </div>
             <CgProfile className="mt-2" />
             <h1 className="text-base mt-1 flex gap-1 ">
               Nwamini Emmanuel <MdVerified className="text-blue-600 mt-1" />{" "}
