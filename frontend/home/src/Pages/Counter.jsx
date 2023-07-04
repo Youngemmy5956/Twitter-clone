@@ -4,17 +4,16 @@ function Counter() {
     const [count, setCount] = useState(0);
 
     const increment = () => {
-        setCount(count + 1)
+        setCount((prevcount) => prevcount + 1)
     };
 
     const decrement = () => {
-        setCount(count - 1)
+        setCount((prevcount) => prevcount - 1)
     };
 
 
-
   return (
-    <div>
+    <div className='flex justify-center'>
 
         <h1>Counter</h1>
 
