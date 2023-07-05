@@ -65,8 +65,8 @@ export default function Signup() {
   return (
     <div>
       <div className="w-full bg-black text-white flex">
-        <div className="w-[33%] pl-[20%] sticky">
-          <BsTwitter className="text-5xl text-white mt-2" />
+        <div className="w-[33%] pl-[20%] ">
+          <BsTwitter className="text-5xl text-blue-500 mt-2" />
 
           <span className="flex gap-4 cursor-pointer mt-8 ">
             <FiSearch className="text-2xl" />
@@ -80,7 +80,7 @@ export default function Signup() {
         </div>
 
         <div className="w-[30%] border border-white cursor-pointer border-t-black px-3 sticky">
-          <span className="flex justify-between sticky">
+          <span className="flex justify-between first-letter: sticky">
             <h1 className="text-xl font-bold pt-2">Explore</h1>
             <CiSettings className="text-2xl mt-4" />
           </span>
