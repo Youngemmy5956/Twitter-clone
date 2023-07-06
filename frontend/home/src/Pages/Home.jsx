@@ -19,7 +19,7 @@ import axios from "axios";
 
 export default function Home({ onSave }) {
   const [modal, setModal] = useState(false);
-  const [tweets, setTweets] = useState([]); // Task State
+  const [tweets, setTweets] = useState(null); // Task State
 
   const openModal = () => {
     setModal(true);
@@ -29,33 +29,31 @@ export default function Home({ onSave }) {
     setModal(false);
   };
 
-
   const [input, setInput] = useState({
     tweet: "",
-    });
+  });
 
-    const onChangeHandler = (e) => {
-        setInput({ ...input, [e.target.id]: e.target.value });
-    };
+  const onChangeHandler = (e) => {
+    setInput({ ...input, [e.target.id]: e.target.value });
+  };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            await axios
-                .post("http://localhost:5000/api/createTweet", input)
-                .then((res) => {
-                    console.log(res.data);
-                    alert("You have successfully added a new tweet!");
-
-                });
-        } catch (err) {}
-    };
+    try {
+      await axios
+        .post("http://localhost:5000/api/createTweet", input)
+        .then((res) => {
+          console.log(res.data);
+          alert("You have successfully added a new tweet!");
+        });
+    } catch (err) {}
+  };
 
   const getTweet = () => {
     try {
       axios.get("http://localhost:5000/api/getAllTweet").then((res) => {
-        setTweets(res.data.tweets);
+        setTweets(res.data.tweet);
         console.log(res.data);
       });
     } catch (err) {}
@@ -66,7 +64,7 @@ export default function Home({ onSave }) {
   return (
     <div>
       <div className="w-full bg-black text-white flex">
-        <div className="w-[33%] pl-[20%] sticky">
+        <div className="w-[33%] pl-[20%] sticky top-0 h-[100vh]">
           <BsTwitter className="text-5xl text-white mt-2" />
 
           <span className="flex gap-4 cursor-pointer mt-8 ">
@@ -113,12 +111,12 @@ export default function Home({ onSave }) {
         </div>
 
         <div className="w-[30%] border border-white cursor-pointer border-t-black px-3 sticky">
-          <span className="flex justify-between sticky">
+          <span className="flex justify-between">
             <h1 className="text-xl font-bold pt-2">Explore</h1>
             <CiSettings className="text-2xl mt-4" />
           </span>
 
-          <span className="flex justify-evenly sticky">
+          <span className="flex justify-evenly sticky top-0 z-50 bg-black ">
             <h1 className="text-xl font-bold pt-6 pb-6">Home</h1>
             <h1 className="text-xl font-bold pt-6 pb-6">Following</h1>
           </span>
@@ -133,8 +131,7 @@ export default function Home({ onSave }) {
 
           <form onSubmit={onSubmit} action="">
             <input
-
-            id="tweet"
+              id="tweet"
               type="text"
               placeholder="What's happening?!!"
               value={input.text}
@@ -149,17 +146,6 @@ export default function Home({ onSave }) {
             <button className=" bg-blue-500 text-white text-xl mb-1 border-blue-200 ml-8 border py-[2px] mt-2 px-4 rounded-full font-bold flex ">
               Tweet
             </button>
-
-            {/* <section className="px-6">
-              {tweets.length > 0 ? (
-                <Tweets notes={tweets} />
-              ) : (
-                <p className="text-center">No items to display</p>
-              )}
-            </section> */}
-
-            {/* <AddTweets onSave={addTweet} />
-             */}
           </form>
 
           <hr />
@@ -168,12 +154,18 @@ export default function Home({ onSave }) {
 
           <hr />
 
+          <div className="flex pt-8 gap-4 flex-col">
+            {tweets?.map((tweet) => (
+              <div key={tweet.id} className="text-white">
+                {tweet.tweet}
+                <hr />
+              </div>
+            ))}
+          </div>
+
+          <hr />
+
           <span className="flex pt-8 gap-4">
-            {/* <div>
-              {input.map((tweets) => (
-                <tweets key={tweets.tweet} tweets={tweets} />
-              ))}
-            </div> */}
             <CgProfile className="mt-2" />
             <h1 className="text-base mt-1 flex gap-1 ">
               Nwamini Emmanuel <MdVerified className="text-blue-600 mt-1" />{" "}
@@ -199,8 +191,6 @@ export default function Home({ onSave }) {
           <div className="rounded-3xl border-white mt-6 mb-4 pl-8">
             <img src={images} alt="" className="rounded-2xl" />
           </div>
-
-          <hr />
 
           <span className="flex pt-8 gap-4">
             <CgProfile className="mt-2" />
@@ -230,7 +220,7 @@ export default function Home({ onSave }) {
           </div>
         </div>
 
-        <div className="w-[37%] px-3 py-2">
+        <div className="w-[37%] sticky top-10 z-50 px-3 py-2">
           <input
             type="search"
             name=""

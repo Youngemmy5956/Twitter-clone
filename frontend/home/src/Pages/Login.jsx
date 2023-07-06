@@ -183,7 +183,7 @@ export default function Login() {
                     left: "0%",
                     right: "0%",
                     bottom: "0%",
-                    backgroundColor: "#00000078",
+                    backgroundColor: "#0000007",
                     zIndex: 100,
                   },
                 }}
