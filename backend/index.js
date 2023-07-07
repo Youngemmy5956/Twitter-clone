@@ -33,4 +33,13 @@ async function connect() {
     console.log(err);
   }
 }
+
+
+
 connect();
+
+
+
+// import crypto from "crypto";
+// const secrectkey = crypto.randomBytes(5).toString("hex");
+// console.log(secrectkey);

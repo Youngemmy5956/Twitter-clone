@@ -10,7 +10,7 @@ const router = express.Router();
 
 // auth create  user
 
-router.post("/users/createUser", async (req, res) => {
+router.post("/createUser", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
   if (password.length < 8) {
     return res
