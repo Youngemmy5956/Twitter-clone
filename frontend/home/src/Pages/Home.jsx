@@ -158,6 +158,7 @@ export default function Home({ onSave }) {
             {tweets?.map((tweet) => (
               <div key={tweet.id} className="text-white">
                 {tweet.tweet}
+                {tweet.date}
                 <hr />
               </div>
             ))}
